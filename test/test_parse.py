@@ -164,7 +164,7 @@ class TestImport(unittest.TestCase):
         parse(less=self.css, parent=self.parsed)
 
     def test_parse(self):
-        self.assertEqual(str(self.parsed), u'a { text-decoration: none; }')
+        self.assertEqual(str(self.parsed), 'a { text-decoration: none; }')
         
         
 class TestMediaImport(unittest.TestCase):
@@ -174,7 +174,7 @@ class TestMediaImport(unittest.TestCase):
         parse(less=self.css, parent=self.parsed)
 
     def test_parse(self):
-        self.assertEqual(str(self.parsed), u'''@media screen {
+        self.assertEqual(str(self.parsed), '''@media screen {
 a { text-decoration: none; }
 }''')
 

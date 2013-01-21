@@ -37,14 +37,14 @@ class Writer(object):
 
     def writeln(self, string):
         """write a line to the output"""
-        print >> self.out, self._encode(string)
+        print(self._encode(string), file=self.out)
 
     def _encode(self, data):
         """encode data to string"""
         # py3k streams handle their encoding :
         if sys.version_info >= (3, 0):
             return data
-        if not isinstance(data, unicode):
+        if not isinstance(data, str):
             return data
         # data is string
         encoding = (self.out_encoding or

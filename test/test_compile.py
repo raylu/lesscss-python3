@@ -28,23 +28,23 @@ from lesscss.lessc import compile
 
 class TestDocsExamples(unittest.TestCase):
     def test_parse(self):
-        self.assertEqual(compile(u'div { width: 1 + 1 }'), u'div { width: 2; }')
+        self.assertEqual(compile('div { width: 1 + 1 }'), 'div { width: 2; }')
 
     def test_invoke1(self):
-        self.assertEqual(compile(u'a { color: blue }'), u'a { color: blue; }')
+        self.assertEqual(compile('a { color: blue }'), 'a { color: blue; }')
 
     def test_invoke2(self):
-        self.assertEqual(compile(u'.post { color: blue }'),
-                         u'.post { color: blue; }')
+        self.assertEqual(compile('.post { color: blue }'),
+                         '.post { color: blue; }')
 
     def test_variables(self):
-        self.assertEqual(compile(u'''@nice-blue: #5B83AD;
+        self.assertEqual(compile('''@nice-blue: #5B83AD;
 @light-blue: @nice-blue + #111;
 
-#header { color: @light-blue; }'''), u'#header { color: #6c94be; }')
+#header { color: @light-blue; }'''), '#header { color: #6c94be; }')
 
     def test_mixin(self):
-        self.assertEqual(compile(u'''.bordered {
+        self.assertEqual(compile('''.bordered {
   border-top: dotted 1px black;
   border-bottom: solid 2px black;
 }
@@ -75,7 +75,7 @@ class TestDocsExamples(unittest.TestCase):
 }''')
 
     def test_nested_rules(self):
-        self.assertEqual(compile(u'''#header {
+        self.assertEqual(compile('''#header {
   color: black;
 
   .navigation {
@@ -85,7 +85,7 @@ class TestDocsExamples(unittest.TestCase):
     width: 300px;
     :hover { text-decoration: none }
   }
-}'''), u'''#header { color: black; }
+}'''), '''#header { color: black; }
 
 #header .logo { width: 300px; }
 
@@ -94,7 +94,7 @@ class TestDocsExamples(unittest.TestCase):
 #header .navigation { font-size: 12px; }''')
 
     def test_operations(self):
-        self.assertEqual(compile(u'''@base: 5%;
+        self.assertEqual(compile('''@base: 5%;
 @filler: @base * 2;
 @other: @base + @filler;
 @base-color: #222;
@@ -107,7 +107,7 @@ class TestDocsExamples(unittest.TestCase):
   color: #888 / 4;
   background-color: @base-color + #111;
   height: 100% / 2 + @filler;
-}'''), u'''* {
+}'''), '''* {
   background-color: #333;
   color: #222;
   height: 60%;
@@ -117,14 +117,14 @@ class TestDocsExamples(unittest.TestCase):
 }''')
 
     def test_units(self):
-        self.assertEqual(compile(u'''@var: 1px + 5;
+        self.assertEqual(compile('''@var: 1px + 5;
 
 * {
     width: @var;
-}'''), u'* { width: 6px; }')
+}'''), '* { width: 6px; }')
 
     def test_namespaces(self):
-        self.assertEqual(compile(u'''#bundle {
+        self.assertEqual(compile('''#bundle {
   .button {
     display: block;
     border: 1px solid black;
@@ -138,10 +138,10 @@ class TestDocsExamples(unittest.TestCase):
 #header a {
   color: orange;
   #bundle > .button;
-}'''), u'''''')
+}'''), '''''')
 
     def test_accessors(self):
-        self.assertEqual(compile(u'''#defaults {
+        self.assertEqual(compile('''#defaults {
   @width: 960px;
   @color: black;
 }
@@ -151,7 +151,7 @@ class TestDocsExamples(unittest.TestCase):
 .comment {
   width: #defaults[@width];
   color: .article['color'];
-}'''), u'''.article {
+}'''), '''.article {
   color: #294366;
 }
 
@@ -161,17 +161,17 @@ class TestDocsExamples(unittest.TestCase):
 }''')
 
     def test_scope(self):
-        self.assertEqual(compile(u'''@var: red;
+        self.assertEqual(compile('''@var: red;
 
 #page {
   @var: white;
   #header {
     color: @var; // white
   }
-}'''), u'''#page #header { color: white; }''')
+}'''), '''#page #header { color: white; }''')
 
     def test_comments(self):
-        self.assertEqual(compile(u'''/* One hell of a comment */
+        self.assertEqual(compile('''/* One hell of a comment */
 @var: red;
 
 // Get in line!

@@ -66,7 +66,7 @@ def read_file(filename, path):
     if path:
         filename = os.path.join(path, filename)
 
-    handle = file(filename)
+    handle = open(filename)
     
     return handle.read().strip()
 

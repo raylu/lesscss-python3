@@ -50,7 +50,7 @@ def compile(less, path=None):
 
     parse(less, path=path, parent=parsed)
         
-    return unicode(parsed)
+    return str(parsed)
 
 
 def parse(less, parent, path=None):
@@ -172,7 +172,7 @@ if __name__ == '__main__':
 
     try:
         main(argv)
-    except Exception, e:
+    except Exception as e:
         console.Writer(sys.stderr).writeln(
                 traceback.format_exc() if __debug__
                 else str(e))

@@ -431,7 +431,7 @@ def normalise_colour(colour):
     elif colour > 255:
         return 255
     else:
-        return colour
+        return int(colour)
     
     
 def parse_value(less, constants):

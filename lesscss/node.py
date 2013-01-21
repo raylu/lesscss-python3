@@ -40,7 +40,7 @@ class Node(object):
         
         imports = self.get_imports()
         
-        for url in imports.iterkeys():
+        for url in imports.keys():
             if output:
                 output += '\n\n'
                 
@@ -55,7 +55,7 @@ class Node(object):
             if media:
                 output += '@media %s {\n' % ', '.join(media)
 
-            for key in sorted(selectors.iterkeys()):
+            for key in sorted(selectors.keys()):
                 selector = selectors[key]
 
                 if not selector:
@@ -230,7 +230,7 @@ class Node(object):
 
                     declarations = self.get_declarations()
 
-                    for key in declarations.iterkeys():
+                    for key in declarations.keys():
                         value = declarations[key]
                         value = self.get_value(value)
                         selector[key] = value

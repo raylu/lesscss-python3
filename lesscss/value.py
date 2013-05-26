@@ -149,6 +149,10 @@ VALUE = re.compile('''
                          Violet | Wheat | White | WhiteSmoke | Yellow |
                          YellowGreen )
     |
+        (?P<rgba>
+            rgba\([0-9., ]+\)
+        )
+    |
         (?P<comma>
             ,
         )
@@ -237,8 +241,8 @@ VALUE = re.compile('''
 
 
 GROUPS = ('add', 'colour', 'colour_name', 'comma', 'constant', 'divide',
-          'format', 'local', 'multiply', 'number', 'short_colour', 'string',
-          'subtract', 'url', 'whitespace')
+          'format', 'local', 'multiply', 'number', 'rgba', 'short_colour',
+          'string', 'subtract', 'url', 'whitespace')
           
           
 def add(arg1, arg2):
@@ -468,6 +472,9 @@ def parse_value(less, constants):
             group_name = 'colour'
             half = grouped[1:]
             value = '#%s%s' % (half, half)
+        elif group_name == 'rgba':
+            group_name = 'color'
+            value = grouped
         elif group_name == 'whitespace':
             continue
         else:

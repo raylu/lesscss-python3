@@ -221,19 +221,19 @@ class Node(object):
             except AttributeError:
                 pass
             else:
-                for name in names:
-                    try:
-                        selector = selectors[name]
-                    except KeyError:
-                        selector = dict()
-                        selectors[name] = selector
+                name = ', '.join(names)
+                try:
+                    selector = selectors[name]
+                except KeyError:
+                    selector = dict()
+                    selectors[name] = selector
 
-                    declarations = self.get_declarations()
+                declarations = self.get_declarations()
 
-                    for key in declarations.keys():
-                        value = declarations[key]
-                        value = self.get_value(value)
-                        selector[key] = value
+                for key in declarations.keys():
+                    value = declarations[key]
+                    value = self.get_value(value)
+                    selector[key] = value
 
         for item in self.items:
             selectors.update(item.get_selectors(media=media))

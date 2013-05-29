@@ -22,6 +22,7 @@ along with lesscss-python.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 
+from collections import defaultdict
 from lesscss.value import get_value
 
 
@@ -213,7 +214,7 @@ class Node(object):
             raise AssertionError('mixin %s could not be found' % name)
 
     def get_selectors(self, media=None):
-        selectors = dict()
+        selectors = defaultdict(dict)
 
         if self.media == media:        
             try:
@@ -222,14 +223,8 @@ class Node(object):
                 pass
             else:
                 name = ', '.join(names)
-                try:
-                    selector = selectors[name]
-                except KeyError:
-                    selector = dict()
-                    selectors[name] = selector
-
+                selector = selectors[name]
                 declarations = self.get_declarations()
-
                 for key in declarations.keys():
                     value = declarations[key]
                     value = self.get_value(value)
